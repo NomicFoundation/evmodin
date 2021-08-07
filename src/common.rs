@@ -1,4 +1,4 @@
-use std::str::FromStr;
+use std::{convert::TryFrom, str::FromStr};
 
 use bytes::Bytes;
 use ethereum_types::{Address, H256, U256};
@@ -86,6 +86,14 @@ impl FromStr for Revision {
             "shanghai" => Ok(Self::Shanghai),
             _ => Err(()),
         }
+    }
+}
+
+impl TryFrom<&str> for Revision {
+    type Error = ();
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        Revision::from_str(value)
     }
 }
 
